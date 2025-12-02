@@ -24,7 +24,7 @@ jobs:
 
       - name: Decode Keystore
         id: decode_keystore
-        if: ${{ secrets.KEYSTORE_BASE64 != '' }}
+        if: secrets.KEYSTORE_BASE64 != ''
         env:
             ENCODED_STRING: ${{ secrets.KEYSTORE_BASE64 }}
         run: |
