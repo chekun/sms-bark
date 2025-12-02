@@ -20,6 +20,22 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            val keystorePath = System.getenv("KEYSTORE_FILE")
+            val keystorePwd = System.getenv("KEYSTORE_PASSWORD")
+            val keyAliasName = System.getenv("KEY_ALIAS")
+            val keyPwd = System.getenv("KEY_PASSWORD")
+
+            if (!keystorePath.isNullOrEmpty()) {
+                storeFile = file(keystorePath)
+                storePassword = keystorePwd
+                keyAlias = keyAliasName
+                keyPassword = keyPwd
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -27,8 +43,26 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            
+            val releaseSigning = signingConfigs.getByName("release")
+            if (releaseSigning.storeFile != null) {
+                signingConfig = releaseSigning
+            }
         }
     }
+
+    // 配置 APK 分包
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            // 包含常用的架构
+            include("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+            // 生成一个包含所有架构的通用包
+            isUniversalApk = true
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8

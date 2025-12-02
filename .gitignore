@@ -27,3 +27,5 @@
 
 # Log files
 *.log
+/app/release/
+/app/debug/
