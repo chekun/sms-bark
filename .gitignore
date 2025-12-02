@@ -1,0 +1,29 @@
+# Folders and files created by Android Studio and Gradle
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+*.apk
+*.aab
+*.ap_
+*.a_
+*.ap
+*.jar
+*.keystore
+
+# Google Services
+/app/google-services.json
+
+# Proguard
+/app/proguard/
+
+# Log files
+*.log
