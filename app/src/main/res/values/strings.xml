@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">SmsBark</string>
+    <string name="home_title">SmsBark</string>
+    <string name="config_title">配置</string>
+    <string name="stats_success">转发成功</string>
+    <string name="stats_failure">转发失败</string>
+    <string name="service_running">服务正在运行</string>
+    <string name="service_listening">正在监听短信验证码...</string>
+    <string name="service_restricted">服务受限</string>
+    <string name="service_waiting">等待授权以监听短信...</string>
+    <string name="perm_sms_title">需要短信权限</string>
+    <string name="perm_sms_desc">点击授权，否则无法读取短信验证码</string>
+    <string name="perm_battery_title">需要后台运行权限</string>
+    <string name="perm_battery_desc">点击去设置，否则App可能被系统杀掉</string>
+    <string name="config_server_label">Bark Server</string>
+    <string name="config_server_placeholder">https://api.day.app</string>
+    <string name="config_token_label">Bark Token</string>
+    <string name="config_keywords_label">关键词 (用英文逗号分隔)</string>
+    <string name="config_keywords_placeholder">验证码,code,otp</string>
+    <string name="config_save">保存配置</string>
+    <string name="config_test_send">发送测试消息</string>
+    <string name="config_desc">请填写 Bark App 提供的服务器地址和 Token。</string>
+    <string name="test_msg_title">SmsBark 测试</string>
+    <string name="test_msg_body">这是一条测试消息，如果收到说明配置正确！</string>
+    <string name="test_msg_success">测试发送成功</string>
+    <string name="test_msg_fail">测试发送失败，请检查配置</string>
 </resources>

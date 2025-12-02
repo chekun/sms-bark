@@ -33,11 +33,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -67,6 +67,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -160,7 +161,7 @@ fun HomeScreen(navController: NavController) {
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        "SmsBark",
+                        stringResource(R.string.home_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     )
                 },
@@ -171,7 +172,7 @@ fun HomeScreen(navController: NavController) {
                     IconButton(onClick = { navController.navigate("config") }) {
                         Icon(
                             Icons.Default.Settings,
-                            contentDescription = "Settings",
+                            contentDescription = stringResource(R.string.config_title),
                             tint = MaterialTheme.colorScheme.primary
                         )
                     }
@@ -191,8 +192,8 @@ fun HomeScreen(navController: NavController) {
             // Permission Warnings
             if (!hasSmsPermission) {
                 PermissionWarningCard(
-                    title = "需要短信权限",
-                    description = "点击授权，否则无法读取短信验证码",
+                    title = stringResource(R.string.perm_sms_title),
+                    description = stringResource(R.string.perm_sms_desc),
                     onClick = { smsPermissionLauncher.launch(Manifest.permission.RECEIVE_SMS) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -200,8 +201,8 @@ fun HomeScreen(navController: NavController) {
 
             if (!isIgnoringBatteryOptimizations) {
                 PermissionWarningCard(
-                    title = "需要后台运行权限",
-                    description = "点击去设置，否则App可能被系统杀掉",
+                    title = stringResource(R.string.perm_battery_title),
+                    description = stringResource(R.string.perm_battery_desc),
                     onClick = {
                         val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
                         intent.data = Uri.parse("package:${context.packageName}")
@@ -228,7 +229,7 @@ fun HomeScreen(navController: NavController) {
             ) {
                 StatsCard(
                     modifier = Modifier.weight(1f),
-                    title = "转发成功",
+                    title = stringResource(R.string.stats_success),
                     count = successCount,
                     icon = Icons.Default.CheckCircle,
                     iconColor = Color(0xFF4CAF50), // Green
@@ -236,7 +237,7 @@ fun HomeScreen(navController: NavController) {
                 )
                 StatsCard(
                     modifier = Modifier.weight(1f),
-                    title = "转发失败",
+                    title = stringResource(R.string.stats_failure),
                     count = failureCount,
                     icon = Icons.Default.Warning,
                     iconColor = Color(0xFFF44336), // Red
@@ -264,13 +265,13 @@ fun HomeScreen(navController: NavController) {
                     Spacer(modifier = Modifier.width(16.dp))
                     Column {
                         Text(
-                            text = if (hasSmsPermission) "服务正在运行" else "服务受限",
+                            text = if (hasSmsPermission) stringResource(R.string.service_running) else stringResource(R.string.service_restricted),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                         Text(
-                            text = if (hasSmsPermission) "正在监听短信验证码..." else "等待授权以监听短信...",
+                            text = if (hasSmsPermission) stringResource(R.string.service_listening) else stringResource(R.string.service_waiting),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
                         )
@@ -379,11 +380,16 @@ fun ConfigScreen(navController: NavController) {
     var barkToken by remember { mutableStateOf(getConfig(context, "bark_token")) }
     var keywords by remember { mutableStateOf(getConfig(context, "keywords", "验证码,code,otp")) }
     val coroutineScope = rememberCoroutineScope()
+    
+    val testMsgTitle = stringResource(R.string.test_msg_title)
+    val testMsgBody = stringResource(R.string.test_msg_body)
+    val testMsgSuccess = stringResource(R.string.test_msg_success)
+    val testMsgFail = stringResource(R.string.test_msg_fail)
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("配置", fontWeight = FontWeight.Bold) },
+                title = { Text(stringResource(R.string.config_title), fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                    IconButton(onClick = { navController.popBackStack() }) {
                         // Intentionally left blank for cleaner UI
@@ -405,7 +411,7 @@ fun ConfigScreen(navController: NavController) {
             ) {
                 Padding(padding = 16.dp) {
                     Text(
-                        text = "请填写 Bark App 提供的服务器地址和 Token。",
+                        text = stringResource(R.string.config_desc),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -417,8 +423,8 @@ fun ConfigScreen(navController: NavController) {
             OutlinedTextField(
                 value = barkServer,
                 onValueChange = { barkServer = it },
-                label = { Text("Bark Server") },
-                placeholder = { Text("https://api.day.app") },
+                label = { Text(stringResource(R.string.config_server_label)) },
+                placeholder = { Text(stringResource(R.string.config_server_placeholder)) },
                 leadingIcon = { Icon(Icons.Default.Home, contentDescription = null) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
@@ -430,7 +436,7 @@ fun ConfigScreen(navController: NavController) {
             OutlinedTextField(
                 value = barkToken,
                 onValueChange = { barkToken = it },
-                label = { Text("Bark Token") },
+                label = { Text(stringResource(R.string.config_token_label)) },
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
@@ -442,8 +448,8 @@ fun ConfigScreen(navController: NavController) {
             OutlinedTextField(
                 value = keywords,
                 onValueChange = { keywords = it },
-                label = { Text("关键词 (用英文逗号分隔)") },
-                placeholder = { Text("验证码,code,otp") },
+                label = { Text(stringResource(R.string.config_keywords_label)) },
+                placeholder = { Text(stringResource(R.string.config_keywords_placeholder)) },
                 leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
@@ -459,11 +465,11 @@ fun ConfigScreen(navController: NavController) {
                             context = context,
                             barkServer = barkServer,
                             barkToken = barkToken,
-                            title = "SmsBark 测试",
-                            body = "这是一条测试消息，如果收到说明配置正确！",
+                            title = testMsgTitle,
+                            body = testMsgBody,
                             shouldUpdateStats = false // 测试消息不计入统计
                         )
-                        val message = if (success) "测试发送成功" else "测试发送失败，请检查配置"
+                        val message = if (success) testMsgSuccess else testMsgFail
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                     }
                 },
@@ -477,7 +483,7 @@ fun ConfigScreen(navController: NavController) {
             ) {
                 Icon(Icons.Default.Send, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("发送测试消息", fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.config_test_send), fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
             }
             
             Spacer(modifier = Modifier.weight(1f))
@@ -495,7 +501,7 @@ fun ConfigScreen(navController: NavController) {
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
-                Text("保存配置", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(stringResource(R.string.config_save), fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.height(32.dp))
         }

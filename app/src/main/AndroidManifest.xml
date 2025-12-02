@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmsBark"
-        tools:targetApi="31">
+        tools:targetApi="35">
         
         <receiver android:name=".SmsReceiver"
             android:exported="true"

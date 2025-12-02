@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "me.chekun.smsbark"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "me.chekun.smsbark"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
