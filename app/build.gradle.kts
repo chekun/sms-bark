@@ -27,11 +27,21 @@ android {
             val keyAliasName = System.getenv("KEY_ALIAS")
             val keyPwd = System.getenv("KEY_PASSWORD")
 
-            if (!keystorePath.isNullOrEmpty() && file(keystorePath).exists()) {
-                storeFile = file(keystorePath)
-                storePassword = keystorePwd
-                keyAlias = keyAliasName
-                keyPassword = keyPwd
+            if (!keystorePath.isNullOrEmpty()) {
+                // 尝试解析文件路径：先作为绝对路径或相对于模块路径，如果不存在，再尝试相对于根项目路径
+                var keystoreFile = file(keystorePath)
+                if (!keystoreFile.exists()) {
+                    keystoreFile = rootProject.file(keystorePath)
+                }
+
+                if (keystoreFile.exists()) {
+                    storeFile = keystoreFile
+                    storePassword = keystorePwd
+                    keyAlias = keyAliasName
+                    keyPassword = keyPwd
+                } else {
+                    println("Keystore file not found at: $keystorePath")
+                }
             }
         }
     }
