@@ -16,7 +16,6 @@
 *.ap_
 *.a_
 *.ap
-*.jar
 *.keystore
 
 # Google Services
@@ -24,8 +23,11 @@
 
 # Proguard
 /app/proguard/
+/app/release
 
 # Log files
 *.log
-/app/release/
-/app/debug/
+
+# Ignore all jar files except gradle-wrapper.jar
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
