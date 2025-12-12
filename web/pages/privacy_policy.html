@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - SmsBark</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 20px; max-width: 800px; margin: auto; color: #333; }
+        h1, h2 { color: #2196F3; }
+        h1 { border-bottom: 2px solid #eee; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .lang-switch { font-size: 0.9rem; font-weight: normal; text-decoration: none; color: #666; border: 1px solid #ddd; padding: 5px 10px; border-radius: 4px; }
+        .lang-switch:hover { background-color: #f5f5f5; color: #2196F3; }
+        p { margin-bottom: 15px; }
+        ul { margin-bottom: 15px; padding-left: 20px; }
+    </style>
+</head>
+<body>
+    <h1>
+        Privacy Policy
+        <a href="privacy_policy_zh.html" class="lang-switch">中文</a>
+    </h1>
+    <p><strong>Last updated:</strong> December 12, 2025</p>
+
+    <p>This Privacy Policy describes how SmsBark ("we", "our", or "the App") handles your information. SmsBark is an open-source Android application designed to forward SMS verification codes to other devices using the Bark protocol.</p>
+
+    <h2>1. Data Collection and Usage</h2>
+    <p><strong>We do not collect, store, or share your personal data on our servers.</strong></p>
+    
+    <h3>SMS Data</h3>
+    <p>The App requests the <code>RECEIVE_SMS</code> permission to function. This permission is used strictly for the following purpose:</p>
+    <ul>
+        <li>To listen for incoming SMS messages on your device.</li>
+        <li>To process the message content locally to identify if it contains specific keywords (e.g., "verification code", "code", "otp").</li>
+        <li>To extract the message body and sender information.</li>
+    </ul>
+    <p>Once identified, this data is forwarded immediately to the Bark server URL <strong>you configured</strong>. We do not have access to your SMS messages, nor do we store them.</p>
+
+    <h3>Network Access</h3>
+    <p>The App uses internet access to send HTTP requests to the Bark server you specified in the settings. This is solely for the purpose of forwarding the message content.</p>
+
+    <h2>2. Third-Party Services</h2>
+    <p>The App interacts with a third-party service: <strong>Bark</strong> (or a self-hosted Bark server). </p>
+    <p>When the App forwards a message, the data (sender and message body) is transmitted to the server address you provided. You should refer to the privacy policy of the Bark service provider (or your own server's policy) regarding how that data is handled once it leaves your Android device.</p>
+
+    <h2>3. Permissions</h2>
+    <p>The App requires the following sensitive permissions to operate:</p>
+    <ul>
+        <li><strong>RECEIVE_SMS:</strong> Required to capture incoming SMS messages for forwarding.</li>
+        <li><strong>REQUEST_IGNORE_BATTERY_OPTIMIZATIONS:</strong> Required to ensure the App can run in the background and reliably forward messages even when the device is idle.</li>
+        <li><strong>RECEIVE_BOOT_COMPLETED:</strong> Required to restart the listening service automatically after your device reboots.</li>
+    </ul>
+
+    <h2>4. Data Security</h2>
+    <p>The security of your data depends on the configuration you provide. We strongly recommend using HTTPS for your Bark server address to ensure that your SMS content is encrypted during transmission over the network.</p>
+
+    <h2>5. Children’s Privacy</h2>
+    <p>The App is not directed to children under the age of 13. We do not knowingly collect personal information from children.</p>
+
+    <h2>6. Changes to This Privacy Policy</h2>
+    <p>We may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+
+    <h2>7. Contact Us</h2>
+    <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us via our GitHub repository:</p>
+    <p><a href="https://github.com/chekun/sms-bark">https://github.com/chekun/sms-bark</a></p>
+
+</body>
+</html>
